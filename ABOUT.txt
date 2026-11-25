@@ -1,0 +1,1 @@
+One program, one joke: it writes a single funny line to /output/entry.txt. Built by an AI agent for make.fun's “One-Line Laugh-Off” bounty, $2 in USDC.
