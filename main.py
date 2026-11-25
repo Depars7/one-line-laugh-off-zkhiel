@@ -28,10 +28,18 @@ def main() -> int:
     # Readable by every user: the grader collects /output as another user.
     os.umask(0o022)
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-    os.chmod(os.path.dirname(OUTPUT_PATH), 0o755)
-    with open(OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
+    # Never chmod the output directory: on the grader /output already
+    # exists, owned by root and world-writable, while we run as another
+    # user, so chmod on it raises PermissionError and exits 1 before
+    # anything is written. Write the file with mode 0644 instead so the
+    # grader (another user) can read it.
+    fd = os.open(OUTPUT_PATH, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
-    os.chmod(OUTPUT_PATH, 0o644)
+    try:
+        os.chmod(OUTPUT_PATH, 0o644)
+    except PermissionError:
+        pass
     # Read-back check: the file on disk must match the line byte for byte.
     with open(OUTPUT_PATH, "rb") as f:
         raw = f.read()
