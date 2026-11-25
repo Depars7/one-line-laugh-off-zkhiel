@@ -70,7 +70,7 @@ Scored 1–5 per criterion: Funny / Land / Surprise / Economy / Freshness.
   the last two words, with no tail after it.
 - Surprise (5): nothing in the first sentence predicts a resignation
   letter; the reader expects a drink, a shot, a double espresso.
-- Economy (5): 78 characters, 13 words, two sentences, zero filler. The
+- Economy (5): 79 characters, 13 words, two sentences, zero filler. The
   word "barista" does the scene-setting alone.
 - Freshness (4): the "something strong" setup is a classic shape, but the
   payoff — a stranger handing you her resignation — is not a recycled

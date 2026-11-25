@@ -16,13 +16,19 @@ OUTPUT_PATH = "/output/entry.txt"
 
 def main() -> int:
     text = LINE
+    if "\n" in text or "\r" in text:
+        print("gate: line must be a single line", file=sys.stderr)
+        return 1
     if not (1 <= len(text) <= 200):
         print(f"gate: line is {len(text)} characters, must be 1-200", file=sys.stderr)
         return 1
     if not text.strip():
         print("gate: line is whitespace-only", file=sys.stderr)
         return 1
+    # Readable by every user: the grader collects /output as another user.
+    os.umask(0o022)
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+    os.chmod(os.path.dirname(OUTPUT_PATH), 0o755)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
     os.chmod(OUTPUT_PATH, 0o644)
